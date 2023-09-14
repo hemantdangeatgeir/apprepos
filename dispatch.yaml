@@ -4,4 +4,4 @@ dispatch:
     service: backend
 # Route all other urls to the React.js frontend
   - url: "backend-dot-cshsandbox.uw.r.appspot.com/api/*"
-    service: default
+    service: backend
