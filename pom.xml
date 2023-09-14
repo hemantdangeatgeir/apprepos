@@ -42,10 +42,11 @@
 			</plugin>
 			<plugin>
      			<groupId>com.google.cloud.tools</groupId>
-   				<artifactId>appengine-maven-plugin</artifactId>   				 
+   				<artifactId>appengine-maven-plugin</artifactId>
+   				<version>2.4.4</version>   				 
    				<configuration>
-    			<deploy.projectId>cshsandbox</deploy.projectId>
-    			<deploy.version>1.8</deploy.version>
+    			<projectId>GCLOUD_CONFIG</projectId>
+    			<version>gettingstarted</version>
   				</configuration>
  				</plugin>
 		</plugins>
