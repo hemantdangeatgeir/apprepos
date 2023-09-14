@@ -3,5 +3,5 @@ dispatch:
   - url: "backend-dot-cshsandbox.uw.r.appspot.com/"
     service: backend
 # Route all other urls to the React.js frontend
-  - url: "*/api/*"
+  - url: "backend-dot-cshsandbox.uw.r.appspot.com/api/*"
     service: default
