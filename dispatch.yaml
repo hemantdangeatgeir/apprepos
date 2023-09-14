@@ -1,7 +1,7 @@
 dispatch:
 # Route the URLs that point to the java backend to backend service
   - url: "backend-dot-cshsandbox.uw.r.appspot.com/"
-    service: backend
+    service: default
 # Route all other urls to the React.js frontend
-  - url: "*/.*"
+  - url: "*/api/*"
     service: backend
