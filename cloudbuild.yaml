@@ -19,13 +19,13 @@ steps:
 
 # backend deployment
 # Step 4: Running maven tests
-  - name: maven:3-jdk-8
+  - name: maven:3.6.3-jdk-8
     entrypoint: mvn
     dir: 'server'
     args: ["test"]
 
 # Step 5: Running **mvn clean install** and skipping test cases
-  - name: maven:3-jdk-8
+  - name: maven:3.6.3-jdk-8
     entrypoint: mvn
     dir: 'server'
     args: ["clean", "install", "-Dmaven.test.skip=true"]
