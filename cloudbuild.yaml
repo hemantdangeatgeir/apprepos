@@ -1,27 +1,54 @@
 steps:
-#build docker container
-- name: 'gcr.io/cloud-builders/docker'
-  args: [ 'build', '-t', 'gcr.io/$PROJECT_ID/hd-spring-test-app', '.']
-  
-#push container to container registry
-- name: 'gcr.io/cloud-builders/docker'
-  args: [ 'push', 'gcr.io/$PROJECT_ID/hd-spring-test-app']
+# frontend deployment
+# Step 1: For installing dependencies
+  - name: "gcr.io/cloud-builders/npm"
+    dir: 'ui'
+    args: ["install"]
 
-#deploy to cloud run
-- name: 'gcr.io/cloud-builders/gcloud'
-  args:
-  - 'run'
-  - 'deploy'
-  - 'cloudrunservice'
-  - '--image'
-  - 'gcr.io/$PROJECT_ID/hd-spring-test-app'
-  - '--region'
-  - 'us-central1'
-  - '--platform'
-  - 'managed'
-  - '--allow-unauthenticated'
- 
-images:
-  - 'gcr.io/$PROJECT_ID/hd-spring-test-app' 
+# Step 2: For creating optinimized build
+  - name: "gcr.io/cloud-builders/npm"
+    dir: 'ui'
+    args: ["run", "build"]
 
-  
+# Step 3: This step will execute app.yaml in your ui folder and deploy your app based on the configuration specified
+  - name: "gcr.io/cloud-builders/gcloud"
+    dir: 'ui'
+    args: ["app", "deploy"]
+# timeout specified for this step as deployment may take more that default time(10min)
+    #timeout: "30m0s" 
+
+# backend deployment
+# Step 4: Running maven tests
+  - name: maven:3-jdk-8
+    entrypoint: mvn
+    dir: 'server'
+    args: ["test"]
+
+# Step 5: Running **mvn clean install** and skipping test cases
+  - name: maven:3-jdk-8
+    entrypoint: mvn
+    dir: 'server'
+    args: ["clean", "install", "-Dmaven.test.skip=true"]
+
+# Step 6: Creating docker image using docker file present in server folder
+  - name: docker
+    dir: 'server'
+    args: ["build", "-t", "gcr.io/web-app/webapp3", "."]
+
+# Step 7: pushing docker image to GCP Container Registry
+  - name: "gcr.io/cloud-builders/docker"
+    args: ["push", "gcr.io/web-app/webapp3"]
+
+# Step 8: Deploying this image using app.yaml present in **server/src/main/appengine** to GCP **APP ENGINE**
+  - name: 'gcr.io/cloud-builders/gcloud'
+    dir: 'server/src/main/appengine'
+    args: ['app', 'deploy', "--image-url=gcr.io/web-app/webapp3"]
+    #timeout: "30m0s"
+
+# Step 9: This step is make sure that dispatch.yaml file is deployed once all the services are started
+  # dispatch.yaml deployment
+  - name: "gcr.io/cloud-builders/gcloud"
+    args: ["app", "deploy", "dispatch.yaml"]
+    #timeout: "30m0s"
+#timeout: "100m0s"
+images: ["gcr.io/web-app/webapp3"]
