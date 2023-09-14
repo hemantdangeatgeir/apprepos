@@ -18,6 +18,6 @@ class HelloController
 {
 	@GetMapping("/")
 	public String appResponse() {
-		return "Response return by CloudBuild-AppEngine-Cloud Run.";
+		return "CICD approch.";
 	}
 }
