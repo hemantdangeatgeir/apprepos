@@ -1,3 +1,4 @@
+runtime: java
 env: flex
 service: backend
 instance_class: F1
