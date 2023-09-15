@@ -11,5 +11,4 @@ dispatch:
     service: default
 
   - url: "*/api/*"
-    service: static-backend
-    
+    service: backend    
