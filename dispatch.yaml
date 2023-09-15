@@ -12,4 +12,3 @@ dispatch:
     
   - url: "*/api/*"
     module : api
-    service : backend
