@@ -10,5 +10,5 @@ dispatch:
   - url: "backend-dot-cshsandbox.uw.r.appspot.com/"
     service: backend
     
-  - url: "*/*"
+  - url: "*/api/*"
     service : backend
