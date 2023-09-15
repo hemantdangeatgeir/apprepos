@@ -1,5 +1,6 @@
 package com.clinicalpatient.intelligence;
 
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -7,9 +8,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api")
 public class QueryBuilderContrlr {
 
-	@RequestMapping(value="/getQueryCatalog")
+	@GetMapping("/getQueryCatalog")
 	public String getQueryCatalog() {
-		return "response by getQueryCatalog";
+		return "response by getQueryCatalog api";
 	}
 	@RequestMapping(value="/getUserList")
 	public String getUserList() {
