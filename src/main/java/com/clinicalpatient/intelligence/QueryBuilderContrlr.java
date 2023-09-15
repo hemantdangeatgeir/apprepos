@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api")
 public class QueryBuilderContrlr {
 
-	@GetMapping("/getQueryCatalog")
+	@GetMapping("/getQueryCatalogList")
 	public String getQueryCatalog() {
-		return "response by getQueryCatalog api";
+		return "response by getQueryCatalog api.";
 	}
 	@RequestMapping(value="/getUserList")
 	public String getUserList() {
