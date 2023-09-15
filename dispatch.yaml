@@ -7,5 +7,8 @@
 #    service: backend
     
 dispatch:
-  - url: "backend-dot-cshsandbox.uw.r.appspot.com/*"
-    service: default 
+  - url: "backend-dot-cshsandbox.uw.r.appspot.com/"
+    service: backend
+    
+  - url: "*/.*"
+    service : backend
