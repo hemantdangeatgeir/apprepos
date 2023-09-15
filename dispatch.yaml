@@ -14,5 +14,5 @@ dispatch:
   - url: "*/backend"
     service: backend
     
-  - url: "*/backend/api/.*"
+  - url: "*/api*"
     service: backend  
